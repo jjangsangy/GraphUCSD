@@ -57,7 +57,7 @@ So most of the code is actually data munging and cleaning up the data in order t
 
 Ultimately, the schema for Postgres looks like this.
 
-[Schema](http://i.imgur.com/JpMoiIz.jpg?1)
+![Schema](http://i.imgur.com/JpMoiIz.jpg?1)
 
 This image is a little bit old, the new schema is a little different, but you get the idea.
 
