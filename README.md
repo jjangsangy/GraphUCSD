@@ -61,6 +61,15 @@ Ultimately, the schema for Postgres looks like this.
 
 This image is a little bit old, the new schema is a little different, but you get the idea.
 
+Motivation
+==========
+Motivation for the project came out from a desire to better equip students with class selection. 
+
+Oftentimes, students utilize a 3rd party service like https://RateMyProfessor.com to make class choices. This is sub-optimal for both student and professor since these 3rd parties rely on student participation oftentimes causing anecdotal evidence from students to more important. It is disadvantageous for assistant tenure track professors be reviewed dis-favorably among students in ways that may not be consistent. 
+
+Conclusion
+==========
+The product was built for the students with the belief in data transparency will improve the efficiency and give insight to both faculty and student body to make their quarterly decisions.
 
 # A Note on Scraping
 
