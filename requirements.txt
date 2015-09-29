@@ -1,0 +1,8 @@
+ipywidgets
+ipython[all]
+pandas
+beautifulsoup4
+sqlalchemy
+sqlalchemy_utils
+lxml
+html5lib

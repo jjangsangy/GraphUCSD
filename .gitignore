@@ -1,0 +1,4 @@
+conda/**
+Miniconda-latest*
+.ipynb_checkpoints/**
+cape.slides.html
