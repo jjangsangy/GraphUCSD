@@ -3,12 +3,12 @@ SDHacks 2015 Talk
 
 ## Anatomy of Web Scrapers: Building Data Apps
 
-[GraphUCSD](https://tabsoft.co/1B96Keb):
+[GraphUCSD](http://tabsoft.co/1KPm04B):
 ========================================
 
 Web Demo
 =========
-http://tabsoft.co/1Fv3YaO
+http://tabsoft.co/1KPm04B
 
 ## Class Study App using UCSD CAPE Data
 Create a interactive visualization composed by the CAPE surveys filled at the end of each quarter
