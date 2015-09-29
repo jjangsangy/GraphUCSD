@@ -6,9 +6,12 @@ SDHacks 2015 Talk
 [GraphUCSD](https://tabsoft.co/1B96Keb):
 ========================================
 
+Web Demo
+=========
+http://tabsoft.co/1Fv3YaO
+
 ## Class Study App using UCSD CAPE Data
 Create a interactive visualization composed by the CAPE surveys filled at the end of each quarter
-__Code__: [Github](https://gist.github.com/jjangsangy/ef0d9b534c5f4ab58422)
 
 ![graph_ucsd](http://i.imgur.com/DufDtIE.png)
 
