@@ -1,4 +1,29 @@
+# SDHacks 2015 Talk
+
+# Anatomy of Web Scrapers: Building Data Apps
+
+## [GraphUCSD](https://tabsoft.co/1B96Keb):
+
+#### Class Study App using UCSD CAPE Data
+Create a interactive visualization composed by the CAPE surveys filled at the end of each quarter
+__Code__: [Github](https://gist.github.com/jjangsangy/ef0d9b534c5f4ab58422)
+
+![graph_ucsd](http://i.imgur.com/DufDtIE.png)
+
+------
+
 # Installation
+
+Easy way (Only OS X and Linux)
+
+```
+$ make all
+```
+
+Install Python Packages
+```
+pip install -r requirements.txt
+```
 
 Install Python using Anacondas
 
