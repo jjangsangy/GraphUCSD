@@ -13,8 +13,14 @@ PIP     := conda/bin/pip
 IPYTHON := conda/bin/ipython
 RUN     := conda/bin/python
 
-.PHONY: all
-all: install run
+.PHONY: conda
+conda: $(CONDA)
+	$(CONDA) update conda -y
+	$(PIP) install lxml --no-cache-dir
+	$(PIP) install -r requirements.txt
+
+.PHONY: all run
+all: install
 
 .PHONY: help
 help:
@@ -26,12 +32,6 @@ help:
 	@echo "  clean   remove build files"
 	@echo
 	@echo
-
-.PHONY: conda
-conda: $(CONDA)
-	$(CONDA) update conda -y
-	$(PIP) install lxml --no-cache-dir
-	$(PIP) install -r requirements.txt
 
 $(CONDA):
 	@echo "installing conda"
@@ -53,7 +53,6 @@ serve: $(IPYTHON)
 
 slides: $(IPYTHON)
 	$(IPYTHON) nbconvert --to slides --post serve cape.ipynb
-
 
 .PHONY: clean
 clean:
