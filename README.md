@@ -35,11 +35,6 @@ Install Python using Anacondas
 
 [Anacondas Python Distribution](http://continuum.io/downloads)
 
-Install Python Packages
-```
-pip install -r requirements.txt
-```
-
 Important Libraries
 ====================
 
