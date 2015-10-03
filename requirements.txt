@@ -5,3 +5,4 @@ sqlalchemy
 sqlalchemy_utils
 html5lib
 matplotlib
+seaborn
