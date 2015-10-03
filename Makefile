@@ -15,8 +15,9 @@ RUN     := conda/bin/python
 
 .PHONY: conda
 conda: $(CONDA)
-	$(CONDA) update conda -y
-	$(PIP) install lxml --no-cache-dir
+	$(CONDA) update -y conda
+	$(CONDA) install -y lxml pandas
+
 	$(PIP) install -r requirements.txt
 
 .PHONY: all run
