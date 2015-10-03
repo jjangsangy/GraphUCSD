@@ -3,6 +3,8 @@ SDHacks 2015 Talk
 
 ## Anatomy of Web Scrapers: Building Data Apps
 
+## [Google Hangout](https://plus.google.com/events/c5jpfhqi5mue0ilh5v31d2iuu08)
+
 [GraphUCSD](http://tabsoft.co/1KPm04B):
 ========================================
 
