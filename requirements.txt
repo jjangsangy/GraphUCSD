@@ -1,8 +1,5 @@
-ipywidgets
-ipython[all]
+jupyterhub
 beautifulsoup4
 sqlalchemy
 sqlalchemy_utils
 html5lib
-matplotlib
-seaborn

@@ -295,9 +295,9 @@ def main(threads=6):
     return df.groupby(level=0).first()
 
 if __name__ == '__main__':
-    df = main(32)
+    df = main(64)
     print(df)
     df.to_csv('cape.csv')
 
     # Write to Postgresql
-    # to_db(df, 'cape', user=os.getlogin(), db='graphucsd')
+    to_db(df, 'cape', user=os.getlogin(), db='graphucsd')
