@@ -3,3 +3,4 @@ Miniconda-latest*
 .ipynb_checkpoints/**
 cape.slides.html
 data/cape*
+venv
