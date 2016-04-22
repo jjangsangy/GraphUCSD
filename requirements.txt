@@ -1,4 +1,4 @@
-jupyterhub
+ipython
 beautifulsoup4
 sqlalchemy
 sqlalchemy_utils
