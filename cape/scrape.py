@@ -22,20 +22,20 @@ try:
 except ImportError:
     from urlparse import urljoin
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
-
-__all__ = [
+__all__ = (
     'connect',
-    'departments`',
+    'departments',
     'to_db',
     'department',
     'geberate_table',
     'calculate_percentage',
     'calculate_grades',
-    l'calculate_grades'
-]
+)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 def connect(prot='http', **q):
     """
@@ -173,7 +173,6 @@ def departments():
     dep = dep.map(lambda x: np.nan if x == '' else x)
     dep = dep.dropna()
     dep.index.name = 'Departments'
-
     return dep
 
 
@@ -182,6 +181,7 @@ def calculate_percentage(element):
         return np.float(element.strip('%').strip()) / 100
     else:
         return np.nan
+
 
 def calculate_grades(element):
     if isinstance(element, str):
@@ -218,7 +218,6 @@ def create_table(courses):
 
     print('\nGrabbing Classes: {0}'.format(courses))
 
-    # Get Data
     base  = 'http://cape.ucsd.edu/responses/'
     req   =  (
                 open(courses).read()

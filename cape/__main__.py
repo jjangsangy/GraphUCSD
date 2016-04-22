@@ -5,6 +5,12 @@ from sqlalchemy_utils import database_exists, create_database
 
 from multiprocessing.dummy import Pool as ThreadPool
 
+__all__ = (
+    'run_program',
+    'to_db',
+    'main',
+)
+
 def run_program(threads=6):
     """
     Get all departments
@@ -37,6 +43,11 @@ def to_db(df, table, user='postgres', db='graphucsd', resolve='replace', **kwarg
     df.to_sql(table, engine, if_exists=resolve, **kwargs)
 
 
+def main(**k):
+    df = run_program(k.get('diet'), 8)
+    dfk(df, k.get('db','cape'), user=os.getlogin(), db='graphucsd')
+
+
 if __name__ == '__main__':
-    df = run_program(32)
-    to_db(df, 'cape', user=os.getlogin(), db='graphucsd')
+    print('Downloading')
+    main()

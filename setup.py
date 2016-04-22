@@ -31,7 +31,7 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'download = caape.__main__:main'
+            'download = cape.__main__:main'
         ]
     },
     classifiers=[

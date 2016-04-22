@@ -1,1 +1,2 @@
-run: python3 -m cape.py
+web: jupyterhub -p 8000 --no-db -y --ip 0.0.0.0 notebooks/
+

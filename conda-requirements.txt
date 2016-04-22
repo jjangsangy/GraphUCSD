@@ -8,3 +8,4 @@ beautifulsoup4
 sqlalchemy
 sqlalchemy_utils
 html5lib
+requests
