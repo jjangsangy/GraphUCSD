@@ -1,3 +1,5 @@
-web:ipython notebook
+web: jupyter-hub
 
-run: python cape.py
+run: python3 cape.py
+
+test python test.py
