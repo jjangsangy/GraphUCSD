@@ -1,3 +1,10 @@
 seaborn
+numpy
 matplotlib
+environ
 pandas
+ipython
+beautifulsoup4
+sqlalchemy
+sqlalchemy_utils
+html5lib

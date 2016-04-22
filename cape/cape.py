@@ -7,7 +7,6 @@ from __future__ import print_function
 
 import requests
 import sys
-import itertools
 import logging
 import string
 import os
@@ -16,10 +15,7 @@ import pandas as pd
 import numpy as np
 
 from bs4 import BeautifulSoup
-from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database
 from operator import itemgetter
-from multiprocessing.dummy import Pool as ThreadPool
 
 try:
     from urllib.parse import urljoin
@@ -28,6 +24,18 @@ except ImportError:
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+__all__ = [
+    'connect',
+    'departments`',
+    'to_db',
+    'department',
+    'geberate_table',
+    'calculate_percentage',
+    'calculate_grades',
+    l'calculate_grades'
+]
 
 def connect(prot='http', **q):
     """
@@ -187,6 +195,7 @@ def calculate_section_id(element):
     else:
         return np.nan
 
+
 def create_table(courses):
     """
     Generates a pandas DataFrame by querying UCSD Cape Website.
@@ -258,15 +267,3 @@ def create_table(courses):
 
     return df.set_index('section_id', drop=True)
 
-def to_db(df, table, user='postgres', db='graphucsd', resolve='replace'):
-    """
-    Helper Function to Push DataFrame to Postgresql Database
-    """
-    url = 'postgresql+psycopg2://{user}@localhost/{db}'.format(user=user, db=db)
-
-    if not database_exists(url):
-        create_database(url)
-
-    engine = create_engine(url)
-
-    return df.to_sql(table, engine, if_exists=resolve)

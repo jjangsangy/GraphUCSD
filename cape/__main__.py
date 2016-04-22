@@ -1,5 +1,9 @@
 import logging
 
+from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database
+
+from multiprocessing.dummy import Pool as ThreadPool
 
 def run_program(threads=6):
     """
@@ -20,6 +24,18 @@ def run_program(threads=6):
     pool.close(); pool.join()
     df = pd.concat(table)
     return df.groupby(level=0).first()
+
+
+def to_db(df, table, user='postgres', db='graphucsd', resolve='replace', **kwargs):
+    """
+    Helper Function to Push DataFrame to Postgresql Database
+    """
+    url = 'postgresql+psycopg2://{user}@localhost/{db}'
+    if not database_exists(url):
+        create_database(url)
+    engine = create_engine(url.format(user=user, db=db))
+    df.to_sql(table, engine, if_exists=resolve, **kwargs)
+
 
 if __name__ == '__main__':
     df = run_program(32)
