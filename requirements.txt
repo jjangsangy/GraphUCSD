@@ -1,8 +1,3 @@
-seaborn
-numpy
-matplotlib
-environ
-pandas
 ipython
 beautifulsoup4
 sqlalchemy

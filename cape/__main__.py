@@ -1,53 +1,76 @@
-import logging
+import os
+
+import pandas as pd
 
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
 
 from multiprocessing.dummy import Pool as ThreadPool
 
-__all__ = (
-    'run_program',
-    'to_db',
-    'main',
-)
+from . utils import get_departments
+from . scrape import create_table
 
-def run_program(threads=6):
+
+class CAPECrawler:
     """
-    Get all departments
+    Concrete implementation of a crawler
     """
-    logging.info('Program is Starting')
-    # Get Departments
-    deps  = departments()
-    keys  = [department.strip() for department in deps.keys()]
 
-    # Run Scraper Concurrently Using ThreadPool
-    pool  = ThreadPool(threads)
-    logging.info('Initialize Scraper with {} Threads'.format(threads))
-    table = pool.map(create_table, keys)
-    logging.info('Scrape Complete')
+    def __init__(self, max_threads=32):
+        self.max_threads = max_threads
+        self.df = self.run()
 
-    # Manage ThreadPool
-    pool.close(); pool.join()
-    df = pd.concat(table)
-    return df.groupby(level=0).first()
+    def run(self):
+        """
+        Get all departments
+        """
+        # Get Departments
+        deps  = get_departments()
+        keys  = [department.strip() for department in deps.keys()]
+
+        # Run Scraper Concurrently Using ThreadPool
+        pool  = ThreadPool(self.max_threads)
+        table = pool.map(create_table, keys)
+
+        pool.close()
+        pool.join()
+
+        return pd.concat(table).groupby(level=0).first()
+
+    def to_df(self):
+        return self.collect()
 
 
-def to_db(df, table, user='postgres', db='graphucsd', resolve='replace', **kwargs):
-    """
-    Helper Function to Push DataFrame to Postgresql Database
-    """
-    url = 'postgresql+psycopg2://{user}@localhost/{db}'
-    if not database_exists(url):
-        create_database(url)
-    engine = create_engine(url.format(user=user, db=db))
-    df.to_sql(table, engine, if_exists=resolve, **kwargs)
+    def get_engine(self, url):
 
+        if not database_exists(url):
+            create_database(url)
+
+        return create_engine(url)
+
+    def to_db(self, table, user='postgres', db='graphucsd', resolve='replace', **kwargs):
+        """
+        Helper databasse exporter for Postgres
+        """
+        url = 'postgresql+psycopg2://{user}@localhost/{db}'.format(
+            user=user, db=db
+        )
+        engine = self.get_engine(url)
+        self.df.to_sql(
+            table, engine,
+            if_exists=resolve,
+            **kwargs
+        )
 
 def main(**k):
-    df = run_program(k.get('diet'), 8)
-    dfk(df, k.get('db','cape'), user=os.getlogin(), db='graphucsd')
+    df = run_program(k.get('THREAD', 8))
+    to_db(
+        df, k.get('db','capee'),
+        user=os.getlogin(),
+        db='graphucsd',
+    )
 
 
 if __name__ == '__main__':
-    print('Downloading')
-    main()
+    print("Starting the Crawl")
+    main(**os.envs)

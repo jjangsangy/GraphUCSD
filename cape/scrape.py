@@ -1,5 +1,6 @@
 '''
-    Author : Sang Han
+    Sang Han
+    --------
     Year   : 2015
     License: Apache 2.0
 '''
@@ -7,7 +8,6 @@ from __future__ import print_function
 
 import requests
 import sys
-import logging
 import string
 import os
 
@@ -25,16 +25,13 @@ except ImportError:
 
 __all__ = (
     'connect',
-    'departments',
-    'to_db',
-    'department',
-    'geberate_table',
+    'generate_table',
     'calculate_percentage',
     'calculate_grades',
+    'calculate_percentage',
+    'calculate_section_id',
+    'create_table',
 )
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 def connect(prot='http', **q):
@@ -88,92 +85,6 @@ def connect(prot='http', **q):
         req.raise_for_status()
 
     return req
-
-def departments():
-    """
-    Gets a mapping of all the deparments by key.
-    """
-    logging.info('Grabbing a list of Departments')
-    prototype = connect("http", department="CHEM")
-    soup      = BeautifulSoup(prototype.content, 'lxml')
-    options   = list(reversed(soup.find_all('option')))
-
-    options.pop()
-
-    # Initial Course Mapping
-    mapping = dict(option.text.split(' - ') for option in options)
-
-    # Cleanup
-    for dept in ['BIOL', 'SOC', 'HIST', 'LING', 'LIT', 'NENG', 'RSM ', 'SOE', 'THEA']:
-        mapping.pop(dept)
-
-    # Actual Departments
-    mapping.update({
-        'BIBC': 'Biology Biochemistry',
-        'BILD': 'Biology Lower Division',
-        'BIMM': 'Biology Molecular, Microbiology',
-        'BIPN': 'Biology Physiology and Neuroscience',
-        'SOCA': 'Sociology Theory & Methods',
-        'SOCB': 'Sociology Cult, Lang, & Soc Interact',
-        'SOCC': 'Sociology Organiz & Institutions',
-        'SOCD': 'Sociology Comparative & Historical',
-        'SOCE': 'Sociology Ind Research & Honors Prog',
-        'SOCI': 'Sociology',
-        'SOCL': 'Sociology Lower Division',
-        'HILD': 'History Lower Division',
-        'HIAF': 'History of Africa',
-        'HIEA': 'History of East Asia',
-        'HIEU': 'History of Europe',
-        'HINE': 'History of Near East',
-        'HILA': 'History of Latin America',
-        'HISC': 'History of Science',
-        'HIUS': 'History of the United States',
-        'HITO': 'History Topics',
-        'LTAF': 'Literature African',
-        'LTAM': 'Literature of the Americas',
-        'LTCH': 'Literature Chinese',
-        'LTCS': 'Literature Cultural Studies',
-        'LTEA': 'Literature East Asian',
-        'LTEU': 'Literature European/Eurasian',
-        'LTFR': 'Literature French',
-        'LTGM': 'Literature General',
-        'LTGK': 'Literature Greek',
-        'LTGM': 'Literature German',
-        'LTIT': 'Literature Italian',
-        'LTKO': 'Literature Korean',
-        'LTLA': 'Literature Latin',
-        'LTRU': 'Literature Russian',
-        'LTSP': 'Literature Spanish',
-        'LTTH': 'Literature Theory',
-        'LTWL': 'Literature of the World',
-        'LTWR': 'Literature Writing',
-        'RELI': 'Literature Study of Religion',
-        'TWS' : 'Literature Third World Studies',
-        'NANO': 'Nano Engineering',
-        'MGT' : 'Rady School of Management',
-        'ENG' : 'Jacobs School of Engineering',
-        'LIGN': 'Linguistics',
-        'TDAC': 'Theatre Acting',
-        'TDCH': 'Theatre Dance Choreography',
-        'TDDE': 'Theatre Design',
-        'TDDR': 'Theatre Directing/Stage Management',
-        'TDGE': 'Theatre General',
-        'TDHD': 'Theatre Dance History',
-        'TDHT': 'Theatre History',
-        'TDMV': 'Theatre Dance Movement',
-        'TDPF': 'Theatre Dance Performance',
-        'TDPW': 'Theatre Playwriting',
-        'TDTR': 'Theatre Dance Theory',
-    })
-
-    # Create Categorical Series
-    dep = pd.Series(name='department_name', data=mapping)
-
-    # Reindexing
-    dep = dep.map(lambda x: np.nan if x == '' else x)
-    dep = dep.dropna()
-    dep.index.name = 'Departments'
-    return dep
 
 
 def calculate_percentage(element):
