@@ -15,10 +15,8 @@ class CAPECrawler:
     """
     Concrete implementation of a crawler
     """
-
     def __init__(self, max_threads=32):
         self.max_threads = max_threads
-        self.df = self.run()
 
     def run(self):
         """
@@ -39,7 +37,6 @@ class CAPECrawler:
 
     def to_df(self):
         return self.collect()
-
 
     def get_engine(self, url):
 
@@ -62,12 +59,13 @@ class CAPECrawler:
             **kwargs
         )
 
+
 def main(**k):
-    df = run_program(k.get('THREAD', 8))
-    to_db(
-        df, k.get('db','capee'),
+    crawlerk = CAPECrawler(max_threads=os.env.get(''))
+
+    to_db(df, k.get('db', 'capee'),
         user=os.getlogin(),
-        db='graphucsd',
+        db=k.get('DBNAME', 'UCSDCape'),
     )
 
 
